@@ -1,6 +1,8 @@
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class Todo(models.Model):
     """
     Todo Model: name, description, created
@@ -9,5 +11,5 @@ class Todo(models.Model):
     description = models.TextField()
     created = models.DateTimeField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
