@@ -45,6 +45,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'django_todolist.users',  # custom users app
     # Your stuff: custom apps go here
+    'django_todolist.todo',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
