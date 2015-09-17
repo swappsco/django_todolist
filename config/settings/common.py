@@ -39,6 +39,7 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'rest_framework',  # Django Rest Framework
 )
 
 # Apps specific for this project go here.
@@ -273,4 +274,10 @@ LOGGING = {
     }
 }
 
-# Your common stuff: Below this line define 3rd party library settings
+# 3rd party library settings
+
+# Django Rest Framework Settings
+REST_FRAMEWORK = {
+    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGE_SIZE': 10
+}

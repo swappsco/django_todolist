@@ -17,6 +17,7 @@ urlpatterns = [
     # User management
     url(r'^users/', include("django_todolist.users.urls", namespace="users")),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^api/', include('django_todolist.api.urls')),
 
     # Your stuff: custom urls includes go here
 
