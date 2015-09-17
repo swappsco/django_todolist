@@ -3,7 +3,7 @@ from django.conf.urls import url, include
 from django_todolist.api import views
 
 
-router = routers.DefaultRouter()
+router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'todos', views.TodoViewSet)
 
 urlpatterns = [
