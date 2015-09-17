@@ -1,8 +1,56 @@
-<div class="jumbotron">
-  <h1>Todo List!</h1>
-  <p class="lead">
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Start!<span class="glyphicon "></span></a></p>
-</div>
+<div ng-controller="MainCtrl">
+    <div class="row">
+        <div class="col-md-4 col-xs-6">
+            <input ng-model="query" placeholder="Filter To-dos">
+        </div>
+        <div class="col-md-3 col-xs-6 col-md-offset-5 text-right">
 
+            <a class="btn btn-md btn-success" ng-click="switchDisplayForm()" ng-show="!show_todo_form"><span class="glyphicon glyphicon-plus"></span> Create To-do</a>
+        </div>
+    </div>
+    <div class="todo-form" ng-show="show_todo_form">
+        <h2>Create Todo</h2>
+        <div class="form-group ">
+            <label class="control-label requiredField" for="name">
+                Name
+                <span class="asteriskField">*</span>
+            </label>
+            <input class="form-control" id="name" name="name" type="text" ng-model="todo.name" />
+        </div>
+        <div class="form-group ">
+            <label class="control-label requiredField" for="message">
+                Description
+                <span class="asteriskField">*</span>
+            </label>
+            <textarea class="form-control" cols="40" id="message" name="message" rows="2" ng-model="todo.description"></textarea>
+        </div>
+        <div class="form-group">
+            <div>
+                <button class="btn btn-primary " name="submit" type="submit" ng-click="createTodo()">
+                    Save
+                </button>
+                <a class="btn btn-md btn-danger" ng-click="switchDisplayForm()" ng-show="show_todo_form"></span> Cancel</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h2>My To-dos</h2>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-show="todo.name">
+                        <div class="well">Creating Todo: {{ todo.name }}</div>
+                    </li>
+                    <li class="list-group-item" ng-repeat="todo in todos | filter:query">
+                            <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
+                        {{ todo.name }}
+                        <a class="pull-right" ng-bootbox-confirm="You are about to delete the to-do ''{{todo.name}}''. Are you sure?"?" ng-bootbox-confirm-action="deleteTodo(todo)" href=""><span class="glyphicon glyphicon-trash"></span></a>
+                    </li>
+                </ul>
+        </div>
+    </div>
+</div>

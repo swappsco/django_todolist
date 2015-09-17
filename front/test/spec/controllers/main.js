@@ -17,7 +17,10 @@ describe('Controller: MainCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(MainCtrl.awesomeThings.length).toBe(3);
-  });
+  it('should create 3 todos', inject(function($controller) {
+      var scope = {},
+          ctrl = $controller('MainCtrl', {$scope:scope});
+    expect(scope.todos.length).toBe(3);
+  }));
+  
 });
