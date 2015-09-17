@@ -55,3 +55,7 @@ node_modules/
 
 # virtual environments
 .env
+
+#frontend
+bower_components
+node_modules
