@@ -9,30 +9,38 @@
         </div>
     </div>
     <div class="todo-form" ng-show="show_todo_form">
-        <h2>Create Todo</h2>
+        <h2>To-do: {{todo.name}}</h2>
+        <div class="alert alert-danger alert-dismissable page-alert" ng-hide="validForm">
+          <button type="button" class="close"><span aria-hidden="true" ng-click="validForm=true">×</span><span class="sr-only">Close</span></button>
+          Error sending the to-do. Please validate the data.
+        </div>
+        <form name="todoForm" ng-submit="submitForm()" novalidate>
+          
         <div class="form-group ">
             <label class="control-label requiredField" for="name">
                 Name
                 <span class="asteriskField">*</span>
             </label>
-            <input class="form-control" id="name" name="name" type="text" ng-model="todo.name" />
+            <input class="form-control" id="name" name="name" type="text" ng-model="todo.name" required />
         </div>
         <div class="form-group ">
             <label class="control-label requiredField" for="message">
                 Description
                 <span class="asteriskField">*</span>
             </label>
-            <textarea class="form-control" cols="40" id="message" name="message" rows="2" ng-model="todo.description"></textarea>
+            <textarea class="form-control" cols="40" id="message" name="message" rows="2" ng-model="todo.description" required ></textarea>
         </div>
         <div class="form-group">
             <div>
-                <button class="btn btn-primary " name="submit" type="submit" ng-click="createTodo()">
+                <button class="btn btn-primary " name="submit" type="submit">
                     Save
                 </button>
                 <a class="btn btn-md btn-danger" ng-click="switchDisplayForm()" ng-show="show_todo_form"></span> Cancel</a>
 
             </div>
         </div>
+        </form>
+
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -42,13 +50,15 @@
     <div class="row">
         <div class="col-md-12">
                 <ul class="list-group">
-                    <li class="list-group-item" ng-show="todo.name">
+                    <li class="list-group-item" ng-show="todo.name && !todo.id">
                         <div class="well">Creating Todo: {{ todo.name }}</div>
                     </li>
                     <li class="list-group-item" ng-repeat="todo in todos | filter:query">
-                            <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
-                        {{ todo.name }}
-                        <a class="pull-right" ng-bootbox-confirm="You are about to delete the to-do ''{{todo.name}}''. Are you sure?"?" ng-bootbox-confirm-action="deleteTodo(todo)" href=""><span class="glyphicon glyphicon-trash"></span></a>
+                        <input type="checkbox" ng-click="checkTodo(todo)" ng-checked="todo.checked"/>
+                        <span ng-class="todo.checked ? 'text-strike' : 'text'">
+                        <a href="" ng-click="viewTodo(todo)">{{ todo.name }}</a>
+                        </span>
+                        <a class="pull-right" ng-bootbox-confirm="You are about to delete the to-do ''{{todo.name}}''. Are you sure?" ng-bootbox-confirm-action="deleteTodo(todo)" href=""><span class="glyphicon glyphicon-trash"></span></a>
                     </li>
                 </ul>
         </div>

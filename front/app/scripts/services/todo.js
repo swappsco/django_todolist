@@ -11,6 +11,8 @@ angular.module('frontApp')
   .factory('Todo', 
     function($resource, configuration){
       return $resource(configuration.API_URL+'/todos/:id', {},{
-        query: { method: 'GET', isArray:false}
+        query: { method: 'GET', isArray:false},
+        update: { method: 'PUT', params: {id: '@id'} },
+        delete: { method: 'DELETE', params: {id: '@id'} }
       });
   });

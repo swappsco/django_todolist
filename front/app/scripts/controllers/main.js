@@ -17,26 +17,37 @@ angular.module('frontApp')
         );
     };
 
-    $scope.createTodo = function(){
-        console.log("Clicked the button");
+    $scope.submitForm = function(){
         $scope.entry = new Todo();
         $scope.entry.name = $scope.todo.name;
         $scope.entry.description = $scope.todo.description;
-        Todo.save($scope.entry, function(){ 
-            $scope.loadTodos();
-            $scope.resetForm();
-            $scope.switchDisplayForm();
-        });
+
+            if ($scope.todoForm.$valid) {
+                $scope.validForm = true;
+                if($scope.todo.id){
+                    $scope.entry.id = $scope.todo.id;
+                    Todo.update($scope.entry, function(){ 
+                        $scope.loadTodos();
+                        $scope.resetForm();
+                        $scope.switchDisplayForm();
+                    });
+                }else{
+                    Todo.save($scope.entry, function(){ 
+                        $scope.loadTodos();
+                        $scope.resetForm();
+                        $scope.switchDisplayForm();
+                    });
+                }
+            }else{
+                $scope.validForm = false;
+
+            }
+
+
     };
 
     $scope.switchDisplayForm = function(){
-        // $scope.show_todo_form = !$scope.show_todo_form;
-        if($scope.show_todo_form){
-            $scope.show_todo_form = false;
-        }
-        else{
-            $scope.show_todo_form = true;
-        }
+        $scope.show_todo_form = !$scope.show_todo_form;
     };
 
     $scope.resetForm = function(){
@@ -44,12 +55,27 @@ angular.module('frontApp')
     };
 
     $scope.deleteTodo = function(todo_item){
-        console.log("Delete TODO:"+todo_item.id);
+        Todo.delete({ id: todo_item.id }, function() {
+            $scope.loadTodos();
+        }); 
+    };
+
+    $scope.checkTodo = function(todo_item){
+        Todo.update({ id: todo_item.id, name: todo_item.name, 
+            description: todo_item.description, checked: !todo_item.checked }, function() {
+            $scope.loadTodos();
+        }); 
+    };
+
+    $scope.viewTodo = function(todo_item){
+        $scope.show_todo_form = true;
+        $scope.todo = todo_item;
     };
 
     $scope.resetForm();
     $scope.loadTodos();
 
     $scope.show_todo_form = false;
+    $scope.validForm = true;
 
 });
