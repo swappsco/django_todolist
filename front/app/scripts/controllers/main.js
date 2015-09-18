@@ -9,7 +9,6 @@
  */
 angular.module('frontApp')
   .controller('MainCtrl', function ($scope, $http, Todo) {
-
     $scope.loadTodos = function(){
         var data = Todo.query(
             function(){

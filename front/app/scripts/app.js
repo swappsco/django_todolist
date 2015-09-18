@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngBootbox'
+    'ngBootbox',
+    'services.config'
   ])
   .config(function ($routeProvider) {
     $routeProvider

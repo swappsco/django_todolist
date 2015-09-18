@@ -8,6 +8,8 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
+  // Grunt replace
+  
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -18,6 +20,8 @@ module.exports = function (grunt) {
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn'
   });
+
+  grunt.loadNpmTasks('grunt-replace');
 
   // Configurable paths for the application
   var appConfig = {
@@ -310,6 +314,25 @@ module.exports = function (grunt) {
     //   dist: {}
     // },
 
+    replace: {
+      config: {
+        options: {
+          patterns: [{
+            json: {
+              "API_URL": process.env.API_URL ? process.env.API_URL : 'http://localhost:8000/api'
+            }
+          }]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: ['./config/config.js'],
+          dest: '<%= yeoman.app %>/scripts/services/'
+        }]
+      }
+    },
+
+
     imagemin: {
       dist: {
         files: [{
@@ -492,6 +515,8 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'newer:jshint',
     'test',
-    'build'
+    'build',
+    'replace'
   ]);
-};
+
+  };

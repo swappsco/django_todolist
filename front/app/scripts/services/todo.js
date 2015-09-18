@@ -9,8 +9,8 @@
  */
 angular.module('frontApp')
   .factory('Todo', 
-    function($resource){
-      return $resource('http://localhost:8000/api/todos/:id', {},{
+    function($resource, configuration){
+      return $resource(configuration.API_URL+'/todos/:id', {},{
         query: { method: 'GET', isArray:false}
       });
   });
