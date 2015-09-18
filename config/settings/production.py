@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
+) + MIDDLEWARE_CLASSES
 Production Configurations
 
 - Use djangosecure
@@ -21,18 +22,19 @@ from .common import *  # noqa
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Raises ImproperlyConfigured exception if DJANGO_SECRET_KEY not in os.environ
 SECRET_KEY = env("DJANGO_SECRET_KEY")
-
+#DEBUG = True
 # This ensures that Django will be able to detect a secure connection
 # properly on Heroku.
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # django-secure
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ("djangosecure", )
+#INSTALLED_APPS += ("djangosecure", )
 
 SECURITY_MIDDLEWARE = (
     'djangosecure.middleware.SecurityMiddleware',
 )
+
 
 
 # Make sure djangosecure.middleware.SecurityMiddleware is listed first
@@ -48,16 +50,17 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
 SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_HTTPONLY = True
-SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
+#SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
 
 # SITE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Hosts/domain names that are valid for this site
 # See https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['todolist.local'])
+#ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['todolist.local'])
+ALLOWED_HOSTS = ['*']
 # END SITE CONFIGURATION
 
-INSTALLED_APPS += ("gunicorn", )
+#INSTALLED_APPS += ("gunicorn", )
 
 # STORAGE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -72,7 +75,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_ACCESS_KEY_ID = env('DJANGO_AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('DJANGO_AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('DJANGO_AWS_STORAGE_BUCKET_NAME')
-AWS_AUTO_CREATE_BUCKET = True
+AWS_AUTO_CREATE_BUCKET = False
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
 
@@ -90,7 +93,6 @@ AWS_HEADERS = {
 # URL that handles the media served from MEDIA_ROOT, used for managing
 # stored files.
 MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
-
 # Static Assests
 # ------------------------
 
@@ -141,6 +143,3 @@ CACHES = {
         }
     }
 }
-
-
-# Your production stuff: Below this line define 3rd party library settings
