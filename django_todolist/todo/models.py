@@ -7,8 +7,9 @@ class Todo(models.Model):
     """
     Todo Model: name, description, created
     """
-    name = models.CharField(max_length=100, unique=True)
-    description = models.TextField()
+    name = models.CharField(max_length=100)
+    description = models.TextField(default="")
+    checked = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
