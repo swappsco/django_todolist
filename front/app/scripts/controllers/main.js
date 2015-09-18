@@ -42,8 +42,6 @@ angular.module('frontApp')
                 $scope.validForm = false;
 
             }
-
-
     };
 
     $scope.switchDisplayForm = function(){
